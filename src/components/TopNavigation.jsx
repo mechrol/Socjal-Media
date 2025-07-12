@@ -1,5 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { motion } from 'framer-motion'
+import { useLanguage } from '../contexts/LanguageContext'
+import { useTranslation } from '../translations'
 import { 
   User, 
   Settings, 
@@ -25,24 +27,15 @@ import {
 } from 'lucide-react'
 
 const TopNavigation = ({ navigationItems, activeTab, setActiveTab }) => {
+  const { currentLanguage, languages, changeLanguage } = useLanguage()
+  const { t } = useTranslation(currentLanguage)
+  
   const [showUserMenu, setShowUserMenu] = useState(false)
   const [showLanguageMenu, setShowLanguageMenu] = useState(false)
   const [showAvatarUpload, setShowAvatarUpload] = useState(false)
   const [avatarPreview, setAvatarPreview] = useState(null)
   const [currentAvatar, setCurrentAvatar] = useState("https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop")
   const fileInputRef = useRef(null)
-
-  const languages = [
-    { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'pl', name: 'Polish', flag: '🇵🇱' },
-    { code: 'es', name: 'Español', flag: '🇪🇸' },
-    { code: 'fr', name: 'Français', flag: '🇫🇷' },
-    { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-    { code: 'it', name: 'Italiano', flag: '🇮🇹' },
-    { code: 'pt', name: 'Português', flag: '🇵🇹' },
-    { code: 'id', name: 'Indonesian', flag: '🇮🇩' },
-    { code: 'da', name: 'Dansk', flag: '🇩🇰' }
-  ]
 
   const handleLanguageClick = () => {
     setShowLanguageMenu(true)
@@ -89,6 +82,12 @@ const TopNavigation = ({ navigationItems, activeTab, setActiveTab }) => {
     setShowAvatarUpload(false)
   }
 
+  const handleLanguageSelect = (languageCode) => {
+    changeLanguage(languageCode)
+    setShowLanguageMenu(false)
+    setShowUserMenu(false)
+  }
+
   return (
     <motion.header 
       initial={{ y: -100, opacity: 0 }}
@@ -106,8 +105,8 @@ const TopNavigation = ({ navigationItems, activeTab, setActiveTab }) => {
               <span className="text-white font-bold text-lg">S</span>
             </div>
             <div>
-              <h1 className="text-white font-bold text-xl">SocialHub</h1>
-              <p className="text-white/60 text-sm">Dashboard</p>
+              <h1 className="text-white font-bold text-xl">{t('brandName')}</h1>
+              <p className="text-white/60 text-sm">{t('brandSubtitle')}</p>
             </div>
           </motion.div>
 
@@ -128,7 +127,7 @@ const TopNavigation = ({ navigationItems, activeTab, setActiveTab }) => {
                   whileTap={{ scale: 0.95 }}
                 >
                   <Icon size={18} />
-                  <span className="font-medium">{item.label}</span>
+                  <span className="font-medium">{t(item.label)}</span>
                 </motion.button>
               )
             })}
@@ -178,7 +177,7 @@ const TopNavigation = ({ navigationItems, activeTab, setActiveTab }) => {
                 />
                 <div className="hidden md:block text-left">
                   <p className="text-white font-medium text-sm">Janusz Krawczak</p>
-                  <p className="text-white/60 text-xs">Administrator</p>
+                  <p className="text-white/60 text-xs">{t('administrator')}</p>
                 </div>
               </motion.button>
 
@@ -220,7 +219,7 @@ const TopNavigation = ({ navigationItems, activeTab, setActiveTab }) => {
                       {/* Free Credits */}
                       <div className="p-4 bg-blue-50 border-b border-gray-100">
                         <div className="flex items-center justify-between mb-2">
-                          <span className="text-gray-700 font-medium">Free Credits</span>
+                          <span className="text-gray-700 font-medium">{t('freeCredits')}</span>
                           <CreditCard className="w-4 h-4 text-blue-600" />
                         </div>
                         <div className="flex items-center gap-2">
@@ -238,7 +237,7 @@ const TopNavigation = ({ navigationItems, activeTab, setActiveTab }) => {
                           whileHover={{ x: 4 }}
                         >
                           <User size={16} />
-                          <span className="font-medium text-sm">Profiles</span>
+                          <span className="font-medium text-sm">{t('profiles')}</span>
                         </motion.button>
                         
                         <motion.button 
@@ -246,7 +245,7 @@ const TopNavigation = ({ navigationItems, activeTab, setActiveTab }) => {
                           whileHover={{ x: 4 }}
                         >
                           <Play size={16} />
-                          <span className="font-medium text-sm">Video tutorials</span>
+                          <span className="font-medium text-sm">{t('videoTutorials')}</span>
                         </motion.button>
                         
                         <motion.button 
@@ -254,7 +253,7 @@ const TopNavigation = ({ navigationItems, activeTab, setActiveTab }) => {
                           whileHover={{ x: 4 }}
                         >
                           <BookOpen size={16} />
-                          <span className="font-medium text-sm">Knowledgebase</span>
+                          <span className="font-medium text-sm">{t('knowledgebase')}</span>
                         </motion.button>
                         
                         <motion.button 
@@ -262,7 +261,7 @@ const TopNavigation = ({ navigationItems, activeTab, setActiveTab }) => {
                           whileHover={{ x: 4 }}
                         >
                           <Crown size={16} />
-                          <span className="font-medium text-sm">Template Club</span>
+                          <span className="font-medium text-sm">{t('templateClub')}</span>
                         </motion.button>
                         
                         <motion.button 
@@ -270,7 +269,7 @@ const TopNavigation = ({ navigationItems, activeTab, setActiveTab }) => {
                           whileHover={{ x: 4 }}
                         >
                           <Globe size={16} />
-                          <span className="font-medium text-sm">Agency Website</span>
+                          <span className="font-medium text-sm">{t('agencyWebsite')}</span>
                         </motion.button>
                         
                         <motion.button 
@@ -278,7 +277,7 @@ const TopNavigation = ({ navigationItems, activeTab, setActiveTab }) => {
                           whileHover={{ x: 4 }}
                         >
                           <Users size={16} />
-                          <span className="font-medium text-sm">DFY Tribe</span>
+                          <span className="font-medium text-sm">{t('dfyTribe')}</span>
                         </motion.button>
                         
                         <motion.button 
@@ -288,7 +287,7 @@ const TopNavigation = ({ navigationItems, activeTab, setActiveTab }) => {
                         >
                           <div className="flex items-center gap-3">
                             <Globe size={16} />
-                            <span className="font-medium text-sm">Language</span>
+                            <span className="font-medium text-sm">{t('language')}</span>
                           </div>
                           <ChevronRight size={14} />
                         </motion.button>
@@ -300,7 +299,7 @@ const TopNavigation = ({ navigationItems, activeTab, setActiveTab }) => {
                           whileHover={{ x: 4 }}
                         >
                           <LogOut size={16} />
-                          <span className="font-medium text-sm">Sign Out</span>
+                          <span className="font-medium text-sm">{t('signOut')}</span>
                         </motion.button>
                         
                         <hr className="my-2 border-gray-100" />
@@ -311,7 +310,7 @@ const TopNavigation = ({ navigationItems, activeTab, setActiveTab }) => {
                           whileHover={{ x: 4 }}
                         >
                           <MessageSquare size={16} />
-                          <span className="font-medium text-sm">Prześlij opinię</span>
+                          <span className="font-medium text-sm">{t('sendFeedback')}</span>
                         </motion.button>
                         
                         <motion.button 
@@ -319,7 +318,7 @@ const TopNavigation = ({ navigationItems, activeTab, setActiveTab }) => {
                           whileHover={{ x: 4 }}
                         >
                           <Sidebar size={16} />
-                          <span className="font-medium text-sm">Panele boczne</span>
+                          <span className="font-medium text-sm">{t('sidePanels')}</span>
                         </motion.button>
                         
                         <motion.button 
@@ -327,7 +326,7 @@ const TopNavigation = ({ navigationItems, activeTab, setActiveTab }) => {
                           whileHover={{ x: 4 }}
                         >
                           <History size={16} />
-                          <span className="font-medium text-sm">Historia</span>
+                          <span className="font-medium text-sm">{t('history')}</span>
                         </motion.button>
                         
                         <motion.button 
@@ -335,7 +334,7 @@ const TopNavigation = ({ navigationItems, activeTab, setActiveTab }) => {
                           whileHover={{ x: 4 }}
                         >
                           <Bookmark size={16} />
-                          <span className="font-medium text-sm">Zapisane</span>
+                          <span className="font-medium text-sm">{t('saved')}</span>
                         </motion.button>
                       </div>
                     </>
@@ -349,7 +348,7 @@ const TopNavigation = ({ navigationItems, activeTab, setActiveTab }) => {
                         whileHover={{ x: -4 }}
                       >
                         <ChevronLeft size={16} />
-                        <span className="font-medium text-sm">Back</span>
+                        <span className="font-medium text-sm">{t('back')}</span>
                       </motion.button>
                       
                       <hr className="mb-2 border-gray-100" />
@@ -358,16 +357,23 @@ const TopNavigation = ({ navigationItems, activeTab, setActiveTab }) => {
                       {languages.map((language) => (
                         <motion.button
                           key={language.code}
-                          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 transition-all duration-300"
+                          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-300 ${
+                            currentLanguage === language.code 
+                              ? 'bg-blue-50 text-blue-700 border border-blue-200' 
+                              : 'text-gray-700 hover:bg-gray-50'
+                          }`}
                           whileHover={{ x: 4 }}
-                          onClick={() => {
-                            // Handle language selection
-                            setShowLanguageMenu(false)
-                            setShowUserMenu(false)
-                          }}
+                          onClick={() => handleLanguageSelect(language.code)}
                         >
-                          <span className="text-lg">{language.flag}</span>
+                          <img 
+                            src={language.flag} 
+                            alt={language.flagAlt}
+                            className="w-5 h-4 object-cover rounded-sm"
+                          />
                           <span className="font-medium text-sm">{language.name}</span>
+                          {currentLanguage === language.code && (
+                            <div className="ml-auto w-2 h-2 bg-blue-600 rounded-full"></div>
+                          )}
                         </motion.button>
                       ))}
                     </div>
@@ -382,9 +388,9 @@ const TopNavigation = ({ navigationItems, activeTab, setActiveTab }) => {
                           whileHover={{ x: -4 }}
                         >
                           <ChevronLeft size={16} />
-                          <span className="font-medium text-sm">Back</span>
+                          <span className="font-medium text-sm">{t('back')}</span>
                         </motion.button>
-                        <h3 className="font-semibold text-gray-900">Change Avatar</h3>
+                        <h3 className="font-semibold text-gray-900">{t('changeAvatar')}</h3>
                         <div className="w-6"></div>
                       </div>
 
@@ -416,7 +422,7 @@ const TopNavigation = ({ navigationItems, activeTab, setActiveTab }) => {
                           whileTap={{ scale: 0.98 }}
                         >
                           <Upload size={16} />
-                          <span className="font-medium text-sm">Choose Photo</span>
+                          <span className="font-medium text-sm">{t('choosePhoto')}</span>
                         </motion.button>
 
                         <input
@@ -428,7 +434,7 @@ const TopNavigation = ({ navigationItems, activeTab, setActiveTab }) => {
                         />
 
                         <p className="text-gray-500 text-xs mt-2 text-center">
-                          Recommended: Square image, at least 200x200px
+                          {t('recommendedSize')}
                         </p>
                       </div>
 
@@ -441,7 +447,7 @@ const TopNavigation = ({ navigationItems, activeTab, setActiveTab }) => {
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                           >
-                            <span className="font-medium text-sm">Cancel</span>
+                            <span className="font-medium text-sm">{t('cancel')}</span>
                           </motion.button>
                           <motion.button
                             onClick={handleAvatarSave}
@@ -449,7 +455,7 @@ const TopNavigation = ({ navigationItems, activeTab, setActiveTab }) => {
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                           >
-                            <span className="font-medium text-sm">Save</span>
+                            <span className="font-medium text-sm">{t('save')}</span>
                           </motion.button>
                         </div>
                       )}
@@ -479,7 +485,7 @@ const TopNavigation = ({ navigationItems, activeTab, setActiveTab }) => {
                   whileTap={{ scale: 0.95 }}
                 >
                   <Icon size={16} />
-                  <span className="font-medium text-sm">{item.label}</span>
+                  <span className="font-medium text-sm">{t(item.label)}</span>
                 </motion.button>
               )
             })}

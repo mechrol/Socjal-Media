@@ -1,14 +1,19 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { useLanguage } from '../contexts/LanguageContext'
+import { useTranslation } from '../translations'
 import StatsCard from './StatsCard'
 import QuickActions from './QuickActions'
 import RecentActivity from './RecentActivity'
 import { TrendingUp, Users, Heart, MessageCircle, Share2, Eye } from 'lucide-react'
 
 const Dashboard = () => {
+  const { currentLanguage } = useLanguage()
+  const { t } = useTranslation(currentLanguage)
+
   const stats = [
     {
-      title: 'Total Followers',
+      title: t('totalFollowers'),
       value: '124.5K',
       change: '+12.5%',
       trend: 'up',
@@ -16,7 +21,7 @@ const Dashboard = () => {
       color: 'from-blue-500 to-cyan-500'
     },
     {
-      title: 'Engagement Rate',
+      title: t('engagementRate'),
       value: '8.2%',
       change: '+2.1%',
       trend: 'up',
@@ -24,7 +29,7 @@ const Dashboard = () => {
       color: 'from-pink-500 to-rose-500'
     },
     {
-      title: 'Total Posts',
+      title: t('totalPosts'),
       value: '1,247',
       change: '+45',
       trend: 'up',
@@ -32,7 +37,7 @@ const Dashboard = () => {
       color: 'from-purple-500 to-indigo-500'
     },
     {
-      title: 'Reach',
+      title: t('reach'),
       value: '89.3K',
       change: '+18.7%',
       trend: 'up',
@@ -49,8 +54,8 @@ const Dashboard = () => {
         className="flex items-center justify-between"
       >
         <div>
-          <h1 className="text-3xl font-bold text-white mb-2">Welcome back, Alex!</h1>
-          <p className="text-white/70">Here's what's happening with your social media today.</p>
+          <h1 className="text-3xl font-bold text-white mb-2">{t('welcomeBack')}</h1>
+          <p className="text-white/70">{t('dashboardSubtitle')}</p>
         </div>
         <motion.div
           animate={{ rotate: 360 }}
