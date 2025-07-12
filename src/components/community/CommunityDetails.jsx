@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowLeft, Users, MessageCircle, Star, Crown, Settings, Share2, Bell, Plus } from 'lucide-react'
+import CommunityActionDropdown from './CommunityActionDropdown'
 
 const CommunityDetails = ({ community, onBack }) => {
   const [activeTab, setActiveTab] = useState('posts')
@@ -95,18 +96,11 @@ const CommunityDetails = ({ community, onBack }) => {
                   <Bell size={20} />
                 </motion.button>
                 
-                <motion.button
-                  onClick={handleJoinToggle}
-                  className={`px-6 py-3 rounded-xl font-medium transition-all ${
-                    isJoined
-                      ? 'bg-green-500/20 text-green-300 border border-green-500/30'
-                      : 'bg-gradient-to-r from-pink-500 to-purple-600 text-white hover:shadow-lg'
-                  }`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {isJoined ? 'Joined' : 'Join Community'}
-                </motion.button>
+                <CommunityActionDropdown
+                  community={{ ...community, isJoined }}
+                  isJoined={isJoined}
+                  onJoinToggle={handleJoinToggle}
+                />
               </div>
             </div>
           </div>
