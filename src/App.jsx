@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import Sidebar from './components/Sidebar'
+import TopNavigation from './components/TopNavigation'
 import Dashboard from './components/Dashboard'
 import PostFeed from './components/PostFeed'
 import Analytics from './components/Analytics'
 import ContentManager from './components/ContentManager'
 import Community from './components/Community'
-import { LayoutDashboard, Home, BarChart3, Edit3, Users } from 'lucide-react'
+import Reseller from './components/Reseller'
+import Integrations from './components/Integrations'
+import { LayoutDashboard, Home, BarChart3, Edit3, Users, Store, Settings } from 'lucide-react'
 
 const navigationItems = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -14,6 +16,8 @@ const navigationItems = [
   { id: 'analytics', label: 'Analytics', icon: BarChart3 },
   { id: 'content', label: 'Content Manager', icon: Edit3 },
   { id: 'community', label: 'Community', icon: Users },
+  { id: 'reseller', label: 'Reseller', icon: Store },
+  { id: 'integrations', label: 'Integrations', icon: Settings },
 ]
 
 function App() {
@@ -31,14 +35,18 @@ function App() {
         return <ContentManager />
       case 'community':
         return <Community />
+      case 'reseller':
+        return <Reseller />
+      case 'integrations':
+        return <Integrations />
       default:
         return <Dashboard />
     }
   }
 
   return (
-    <div className="min-h-screen flex">
-      <Sidebar 
+    <div className="min-h-screen flex flex-col">
+      <TopNavigation 
         navigationItems={navigationItems}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
@@ -48,9 +56,9 @@ function App() {
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
             className="h-full"
           >
