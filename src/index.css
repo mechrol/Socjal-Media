@@ -2,22 +2,580 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  body {
-    @apply bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 min-h-screen;
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  color: #1a202c !important;
+  font-weight: 500;
+}
+
+/* Root container */
+#root {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Main app container */
+.min-h-screen {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: #1a202c !important;
+  min-height: 100vh;
+}
+
+/* Content areas */
+main {
+  background: rgba(255, 255, 255, 0.98) !important;
+  color: #1a202c !important;
+  border-radius: 20px;
+  margin: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Force all text to be dark and visible */
+* {
+  color: inherit;
+}
+
+/* Override any light text */
+.text-gray-100,
+.text-gray-200,
+.text-gray-300 {
+  color: #1a202c !important;
+}
+
+/* Cards and containers */
+.bg-white {
+  background-color: #ffffff !important;
+  color: #1a202c !important;
+  border: 1px solid #e2e8f0;
+}
+
+.bg-gray-50 {
+  background-color: #f9fafb !important;
+  color: #1a202c !important;
+}
+
+.bg-gray-100 {
+  background-color: #f3f4f6 !important;
+  color: #1a202c !important;
+}
+
+/* Text colors for better contrast */
+.text-white {
+  color: #ffffff !important;
+}
+
+.text-gray-900 {
+  color: #1a202c !important;
+}
+
+.text-gray-800 {
+  color: #2d3748 !important;
+}
+
+.text-gray-700 {
+  color: #4a5568 !important;
+}
+
+.text-gray-600 {
+  color: #718096 !important;
+}
+
+.text-gray-500 {
+  color: #a0aec0 !important;
+}
+
+.text-gray-400 {
+  color: #cbd5e0 !important;
+}
+
+/* Force visibility for all content */
+div, span, p, h1, h2, h3, h4, h5, h6 {
+  color: #1a202c !important;
+  opacity: 1 !important;
+}
+
+/* Ensure dropdowns appear above other elements */
+.dropdown-container {
+  position: relative;
+  z-index: 9999 !important;
+}
+
+/* Fix for action dropdown visibility */
+.community-card {
+  position: relative;
+  z-index: 1;
+  background-color: #ffffff !important;
+  color: #1a202c !important;
+  border: 1px solid #e2e8f0;
+}
+
+.community-card:hover {
+  z-index: 10;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.actions-dropdown {
+  position: absolute !important;
+  top: 100% !important;
+  right: 0 !important;
+  z-index: 9999 !important;
+  margin-top: 8px !important;
+  background: #ffffff !important;
+  color: #1a202c !important;
+  border-radius: 12px !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid #e2e8f0 !important;
+  min-width: 220px !important;
+  max-height: 400px !important;
+  overflow-y: auto !important;
+}
+
+/* Stats cards */
+.stats-card {
+  background: #ffffff !important;
+  color: #1a202c !important;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Dashboard cards */
+.dashboard-card {
+  background: #ffffff !important;
+  color: #1a202c !important;
+  border: 1px solid #e2e8f0;
+}
+
+/* Buttons */
+button {
+  color: #1a202c !important;
+  font-weight: 600;
+  opacity: 1 !important;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Primary buttons */
+.bg-blue-500, .bg-blue-600 {
+  background-color: #3182ce !important;
+  color: #ffffff !important;
+}
+
+.bg-blue-500:hover, .bg-blue-600:hover {
+  background-color: #2c5aa0 !important;
+}
+
+/* Success buttons */
+.bg-green-500, .bg-green-600 {
+  background-color: #38a169 !important;
+  color: #ffffff !important;
+}
+
+.bg-green-500:hover, .bg-green-600:hover {
+  background-color: #2f855a !important;
+}
+
+/* Warning buttons */
+.bg-yellow-500, .bg-yellow-600 {
+  background-color: #d69e2e !important;
+  color: #1a202c !important;
+}
+
+/* Danger buttons */
+.bg-red-500, .bg-red-600 {
+  background-color: #e53e3e !important;
+  color: #ffffff !important;
+}
+
+/* Purple buttons */
+.bg-purple-500, .bg-purple-600 {
+  background-color: #805ad5 !important;
+  color: #ffffff !important;
+}
+
+/* Pink buttons */
+.bg-pink-500, .bg-pink-600 {
+  background-color: #d53f8c !important;
+  color: #ffffff !important;
+}
+
+/* Navigation */
+nav {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px);
+}
+
+nav button {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-weight: 600;
+}
+
+nav button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff !important;
+}
+
+nav button.active {
+  background: rgba(255, 255, 255, 0.3);
+  color: #ffffff !important;
+}
+
+/* Ensure text is not clipped */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Glass morphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #1a202c !important;
+}
+
+/* Smooth transitions */
+.transition-all {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@layer components {
-  .glass {
-    @apply bg-white/10 backdrop-blur-md border border-white/20 shadow-xl;
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Ensure proper stacking context for modals and dropdowns */
+.modal-overlay {
+  z-index: 50 !important;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.dropdown-overlay {
+  z-index: 9999 !important;
+}
+
+/* Fix for community grid layout */
+.community-grid {
+  position: relative;
+  z-index: 1;
+}
+
+.community-grid > * {
+  position: relative;
+  background: #ffffff;
+  color: #1a202c;
+}
+
+/* Ensure action buttons are clickable */
+.action-button {
+  position: relative;
+  z-index: 10;
+  background: #3182ce;
+  color: #ffffff;
+}
+
+/* Fix for dropdown positioning */
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+/* Ensure proper overflow handling */
+.overflow-visible {
+  overflow: visible !important;
+}
+
+/* Custom utility classes */
+.shadow-xl {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.shadow-2xl {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Input fields */
+input, textarea, select {
+  background: #ffffff !important;
+  color: #1a202c !important;
+  border: 1px solid #e2e8f0 !important;
+  opacity: 1 !important;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: #3182ce !important;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1) !important;
+}
+
+/* Form labels */
+label {
+  color: #4a5568 !important;
+  font-weight: 600;
+}
+
+/* Links */
+a {
+  color: #3182ce !important;
+}
+
+a:hover {
+  color: #2c5aa0 !important;
+}
+
+/* Tables */
+table {
+  background: #ffffff !important;
+  color: #1a202c !important;
+}
+
+th {
+  background: #f7fafc !important;
+  color: #2d3748 !important;
+  font-weight: 600;
+}
+
+td {
+  color: #4a5568 !important;
+}
+
+/* Responsive design helpers */
+@media (max-width: 768px) {
+  .actions-dropdown {
+    right: 0 !important;
+    left: auto !important;
+    min-width: 200px !important;
   }
   
-  .glass-hover {
-    @apply hover:bg-white/20 transition-all duration-300;
+  main {
+    margin: 10px;
+    border-radius: 15px;
   }
-  
-  .gradient-text {
-    @apply bg-gradient-to-r from-pink-400 to-purple-600 bg-clip-text text-transparent;
-  }
+}
+
+/* Ensure proper layering for interactive elements */
+.interactive-layer {
+  position: relative;
+  z-index: 10;
+}
+
+.background-layer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure dropdown items are properly styled */
+.dropdown-item {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #1a202c !important;
+}
+
+.dropdown-item:hover {
+  background: #f7fafc !important;
+  color: #2d3748 !important;
+}
+
+/* Fix for modal and overlay z-index issues */
+.z-50 {
+  z-index: 50 !important;
+}
+
+.z-9999 {
+  z-index: 9999 !important;
+}
+
+/* Specific fixes for dashboard elements */
+.dashboard-stats {
+  background: #ffffff !important;
+  color: #1a202c !important;
+  border: 1px solid #e2e8f0;
+}
+
+.dashboard-chart {
+  background: #ffffff !important;
+  color: #1a202c !important;
+}
+
+/* Community cards specific styling */
+.community-card h3 {
+  color: #1a202c !important;
+  font-weight: 700;
+}
+
+.community-card p {
+  color: #4a5568 !important;
+}
+
+.community-card .category {
+  color: #718096 !important;
+  font-weight: 500;
+}
+
+/* Status indicators */
+.status-active {
+  color: #38a169 !important;
+}
+
+.status-inactive {
+  color: #e53e3e !important;
+}
+
+/* Badges and tags */
+.badge {
+  background: #edf2f7 !important;
+  color: #2d3748 !important;
+  border: 1px solid #e2e8f0;
+}
+
+.badge-primary {
+  background: #3182ce !important;
+  color: #ffffff !important;
+}
+
+.badge-success {
+  background: #38a169 !important;
+  color: #ffffff !important;
+}
+
+.badge-warning {
+  background: #d69e2e !important;
+  color: #1a202c !important;
+}
+
+.badge-danger {
+  background: #e53e3e !important;
+  color: #ffffff !important;
+}
+
+/* Loading states */
+.loading {
+  background: #f7fafc !important;
+  color: #a0aec0 !important;
+}
+
+/* Error states */
+.error {
+  background: #fed7d7 !important;
+  color: #c53030 !important;
+  border: 1px solid #feb2b2;
+}
+
+/* Success states */
+.success {
+  background: #c6f6d5 !important;
+  color: #22543d !important;
+  border: 1px solid #9ae6b4;
+}
+
+/* Info states */
+.info {
+  background: #bee3f8 !important;
+  color: #2a4365 !important;
+  border: 1px solid #90cdf4;
+}
+
+/* Force all content to be visible */
+.opacity-50 {
+  opacity: 1 !important;
+}
+
+.opacity-75 {
+  opacity: 1 !important;
+}
+
+/* Ensure all dashboard content is visible */
+.dashboard-content * {
+  color: #1a202c !important;
+  opacity: 1 !important;
+}
+
+/* Fix for any remaining invisible elements */
+[class*="text-gray-"] {
+  color: #1a202c !important;
+}
+
+[class*="bg-gray-"] {
+  background-color: #ffffff !important;
+  color: #1a202c !important;
+}
+
+/* Ensure icons are visible */
+svg {
+  color: inherit !important;
+  opacity: 1 !important;
+}
+
+/* Force visibility for all interactive elements */
+.cursor-pointer {
+  opacity: 1 !important;
+}
+
+/* Ensure proper contrast for all elements */
+.contrast-fix * {
+  color: #1a202c !important;
+  opacity: 1 !important;
 }

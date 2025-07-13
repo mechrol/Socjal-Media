@@ -4,7 +4,13 @@ import { Users, MessageCircle, Star, Crown, ChevronDown } from 'lucide-react'
 import CommunityActionDropdown from './CommunityActionDropdown'
 import StatusToggle from './StatusToggle'
 
-const CommunityCard = ({ community, viewMode, onJoinToggle }) => {
+const CommunityCard = ({ 
+  community, 
+  viewMode, 
+  onJoinToggle, 
+  onSelect, 
+  onCustomize 
+}) => {
   const [isActive, setIsActive] = useState(community.isActive || true)
   const [showActions, setShowActions] = useState(false)
 
@@ -40,6 +46,33 @@ const CommunityCard = ({ community, viewMode, onJoinToggle }) => {
       entrepreneurship: 'Entrepreneurship'
     }
     return labels[category] || category
+  }
+
+  const handleActionSelect = (action) => {
+    setShowActions(false)
+    
+    switch (action) {
+      case 'customize':
+        onCustomize(community)
+        break
+      case 'visit':
+        onSelect(community)
+        break
+      case 'edit':
+        console.log('Edit community:', community.name)
+        break
+      case 'clone':
+        console.log('Clone community:', community.name)
+        break
+      case 'members':
+        console.log('AI Member Feed for:', community.name)
+        break
+      case 'custom-feed':
+        console.log('AI Custom Prompt Feed for:', community.name)
+        break
+      default:
+        console.log('Unknown action:', action)
+    }
   }
 
   // Apply gray styling when deactivated
@@ -132,6 +165,7 @@ const CommunityCard = ({ community, viewMode, onJoinToggle }) => {
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                style={{ position: 'relative', zIndex: 10 }}
               >
                 Actions
                 <ChevronDown 
@@ -141,15 +175,14 @@ const CommunityCard = ({ community, viewMode, onJoinToggle }) => {
               </motion.button>
 
               {showActions && (
-                <div className="absolute top-full right-0 mt-2 z-50">
-                  <CommunityActionDropdown
-                    community={community}
-                    isJoined={true}
-                    onJoinToggle={() => onJoinToggle(community.id)}
-                    isOpen={showActions}
-                    onClose={() => setShowActions(false)}
-                  />
-                </div>
+                <CommunityActionDropdown
+                  community={community}
+                  isJoined={true}
+                  onJoinToggle={() => onJoinToggle(community.id)}
+                  isOpen={showActions}
+                  onClose={() => setShowActions(false)}
+                  onActionSelect={handleActionSelect}
+                />
               )}
             </div>
           </div>

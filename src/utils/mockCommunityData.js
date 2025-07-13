@@ -3,7 +3,7 @@ export const generateMockCommunities = () => {
     {
       id: 1,
       name: 'PATRON',
-      description: 'Premium subscription services for exclusive content and benefits.',
+      description: 'Premium subscription services for exclusive content and benefits. Act as a premium content curator and learning facilitator.',
       category: 'subscription-services',
       theme: 'modern',
       image: 'https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop',
@@ -13,12 +13,14 @@ export const generateMockCommunities = () => {
       isJoined: true,
       isPremium: true,
       isActive: true,
-      createdAt: '2025-02-28'
+      createdAt: '2025-02-28',
+      actAs: 'Premium Content Curator',
+      learningFocus: 'Subscription Business Models & Premium Content Strategy'
     },
     {
       id: 2,
       name: 'Homohumanicus',
-      description: 'A community focused on human wellness, mindfulness, and personal development.',
+      description: 'A community focused on human wellness, mindfulness, and personal development. Act as a wellness philosopher and holistic health guide.',
       category: 'health-wellness',
       theme: 'nature',
       image: 'https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop',
@@ -28,12 +30,14 @@ export const generateMockCommunities = () => {
       isJoined: false,
       isPremium: false,
       isActive: true,
-      createdAt: '2025-02-13'
+      createdAt: '2025-02-13',
+      actAs: 'Wellness Philosopher',
+      learningFocus: 'Holistic Health & Human Potential Development'
     },
     {
       id: 3,
       name: 'Ziołolecznictwo',
-      description: 'Traditional herbal medicine and natural healing practices community.',
+      description: 'Traditional herbal medicine and natural healing practices community. Act as a herbalist master and natural medicine expert.',
       category: 'health-wellness',
       theme: 'nature',
       image: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop',
@@ -43,12 +47,14 @@ export const generateMockCommunities = () => {
       isJoined: true,
       isPremium: false,
       isActive: true,
-      createdAt: '2025-02-05'
+      createdAt: '2025-02-05',
+      actAs: 'Herbalist Master',
+      learningFocus: 'Traditional Medicine & Natural Healing Practices'
     },
     {
       id: 4,
       name: 'Przedsiębiorcy RP',
-      description: 'A entrepreneurship community is a dynamic group of individuals focused on starting and growing businesses.',
+      description: 'A entrepreneurship community is a dynamic group of individuals focused on starting and growing businesses. Act as a business strategist and startup mentor.',
       category: 'entrepreneurship',
       theme: 'business',
       image: 'https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop',
@@ -58,12 +64,14 @@ export const generateMockCommunities = () => {
       isJoined: false,
       isPremium: false,
       isActive: true,
-      createdAt: '2025-02-04'
+      createdAt: '2025-02-04',
+      actAs: 'Business Strategist',
+      learningFocus: 'Entrepreneurship & Startup Development'
     },
     {
       id: 5,
       name: 'Narodowa Agencja Innowacji',
-      description: 'Społeczność w NAI są grupy społeczne, które prezentują projekty podlegające ocenie pod kątem ich transformacji...',
+      description: 'Społeczność w NAI są grupy społeczne, które prezentują projekty podlegające ocenie pod kątem ich transformacji. Act as an innovation catalyst and transformation expert.',
       category: 'business',
       theme: 'modern',
       image: 'https://images.pexels.com/photos/1181695/pexels-photo-1181695.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop',
@@ -73,12 +81,14 @@ export const generateMockCommunities = () => {
       isJoined: true,
       isPremium: false,
       isActive: true,
-      createdAt: '2024-11-28'
+      createdAt: '2024-11-28',
+      actAs: 'Innovation Catalyst',
+      learningFocus: 'Digital Transformation & Innovation Management'
     },
     {
       id: 6,
       name: 'Wolność i Przedsiębiorczość',
-      description: 'Społeczność w Agencji "Bank Zaufania" są grupy społeczne, które prezentują projekty podlegające ocenie pod kąt...',
+      description: 'Społeczność w Agencji "Bank Zaufania" są grupy społeczne, które prezentują projekty podlegające ocenie pod kąt. Act as a freedom advocate and economic philosopher.',
       category: 'business',
       theme: 'business',
       image: 'https://images.pexels.com/photos/1181715/pexels-photo-1181715.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop',
@@ -88,7 +98,9 @@ export const generateMockCommunities = () => {
       isJoined: false,
       isPremium: false,
       isActive: true,
-      createdAt: '2024-11-27'
+      createdAt: '2024-11-27',
+      actAs: 'Freedom Advocate',
+      learningFocus: 'Economic Philosophy & Entrepreneurial Freedom'
     }
   ]
 

@@ -4,6 +4,7 @@ import CommunitySearch from './community/CommunitySearch'
 import CommunityGrid from './community/CommunityGrid'
 import CreateCommunityModal from './community/CreateCommunityModal'
 import CommunityDetails from './community/CommunityDetails'
+import CustomizeCommunity from './community/CustomizeCommunity'
 import { Plus, Search, Filter, Grid, List } from 'lucide-react'
 
 const Community = () => {
@@ -12,6 +13,8 @@ const Community = () => {
   const [viewMode, setViewMode] = useState('grid')
   const [showCreateModal, setShowCreateModal] = useState(false)
   const [selectedCommunity, setSelectedCommunity] = useState(null)
+  const [showCustomize, setShowCustomize] = useState(false)
+  const [customizeCommunity, setCustomizeCommunity] = useState(null)
 
   const categories = [
     { id: 'all', label: 'All Communities' },
@@ -22,11 +25,29 @@ const Community = () => {
     { id: 'education', label: 'Education' }
   ]
 
+  const handleCustomizeCommunity = (community) => {
+    setCustomizeCommunity(community)
+    setShowCustomize(true)
+  }
+
+  if (showCustomize && customizeCommunity) {
+    return (
+      <CustomizeCommunity 
+        community={customizeCommunity}
+        onBack={() => {
+          setShowCustomize(false)
+          setCustomizeCommunity(null)
+        }}
+      />
+    )
+  }
+
   if (selectedCommunity) {
     return (
       <CommunityDetails 
         community={selectedCommunity}
         onBack={() => setSelectedCommunity(null)}
+        onCustomize={handleCustomizeCommunity}
       />
     )
   }
@@ -93,6 +114,7 @@ const Community = () => {
           selectedCategory={selectedCategory}
           viewMode={viewMode}
           onCommunitySelect={setSelectedCommunity}
+          onCustomizeCommunity={handleCustomizeCommunity}
         />
       </div>
 

@@ -1,136 +1,65 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
-  Edit3, 
-  ExternalLink, 
-  Palette, 
+  Edit, 
+  Eye, 
   Copy, 
   Users, 
-  MessageSquare,
-  X
+  MessageSquare, 
+  Settings,
+  ExternalLink,
+  Palette
 } from 'lucide-react'
 
-const CommunityActionDropdown = ({ community, isJoined, onJoinToggle, isOpen, onClose }) => {
-  const dropdownRef = useRef(null)
+const CommunityActionDropdown = ({ community, isJoined, onJoinToggle, isOpen, onClose, onActionSelect }) => {
+  const handleAction = (action) => {
+    console.log(`Action: ${action} for community:`, community.name)
+    if (onActionSelect) {
+      onActionSelect(action)
+    }
+    onClose()
+  }
 
   const actions = [
-    {
-      id: 'edit',
-      label: 'Edit',
-      icon: Edit3,
-      color: 'text-gray-700 hover:text-blue-600'
-    },
-    {
-      id: 'visit',
-      label: 'Visit',
-      icon: ExternalLink,
-      color: 'text-gray-700 hover:text-green-600'
-    },
-    {
-      id: 'customize',
-      label: 'Customize Community',
-      icon: Palette,
-      color: 'text-gray-700 hover:text-purple-600'
-    },
-    {
-      id: 'clone',
-      label: 'Clone',
-      icon: Copy,
-      color: 'text-gray-700 hover:text-orange-600'
-    },
-    {
-      id: 'ai-member-feed',
-      label: 'AI Member Feed',
-      icon: Users,
-      color: 'text-gray-700 hover:text-pink-600'
-    },
-    {
-      id: 'ai-custom-prompt',
-      label: 'AI Custom Prompt Feed',
-      icon: MessageSquare,
-      color: 'text-gray-700 hover:text-cyan-600'
-    }
+    { id: 'edit', label: 'Edit', icon: Edit, color: 'text-blue-600' },
+    { id: 'visit', label: 'Visit', icon: Eye, color: 'text-green-600' },
+    { id: 'customize', label: 'Customize Community', icon: Palette, color: 'text-purple-600' },
+    { id: 'clone', label: 'Clone', icon: Copy, color: 'text-orange-600' },
+    { id: 'members', label: 'AI Member Feed', icon: Users, color: 'text-indigo-600' },
+    { id: 'custom-feed', label: 'AI Custom Prompt Feed', icon: MessageSquare, color: 'text-pink-600' }
   ]
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        onClose()
-      }
-    }
-
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside)
-    }
-
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [isOpen, onClose])
-
-  const handleActionClick = (actionId) => {
-    console.log(`Action clicked: ${actionId} for community: ${community.name}`)
-    onClose()
-    
-    // Handle specific actions
-    switch (actionId) {
-      case 'edit':
-        // Open edit modal
-        break
-      case 'visit':
-        // Navigate to community page
-        break
-      case 'customize':
-        // Open customization panel
-        break
-      case 'clone':
-        // Open clone dialog
-        break
-      case 'ai-member-feed':
-        // Open AI member feed
-        break
-      case 'ai-custom-prompt':
-        // Open AI custom prompt feed
-        break
-      default:
-        break
-    }
-  }
 
   if (!isOpen) return null
 
   return (
-    <motion.div
-      ref={dropdownRef}
-      initial={{ opacity: 0, y: -10, scale: 0.95 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: -10, scale: 0.95 }}
-      transition={{ duration: 0.2 }}
-      className="bg-white rounded-xl border border-gray-200 shadow-xl overflow-hidden min-w-[220px]"
-    >
-      <div className="p-2">
-        {actions.map((action, index) => {
-          const IconComponent = action.icon
-          return (
-            <motion.button
-              key={action.id}
-              onClick={() => handleActionClick(action.id)}
-              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-50 transition-all duration-200 group"
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.05 }}
-              whileHover={{ x: 4 }}
-            >
-              <IconComponent 
-                size={16} 
-                className={`${action.color} transition-colors duration-200`}
-              />
-              <span className="text-gray-700 font-medium text-sm">
-                {action.label}
-              </span>
-            </motion.button>
-          )
-        })}
-      </div>
-    </motion.div>
+    <div className="fixed inset-0 z-50" onClick={onClose}>
+      <AnimatePresence>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95, y: -10 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.95, y: -10 }}
+          className="absolute top-full right-0 mt-2 bg-white rounded-xl shadow-2xl border border-gray-200 py-2 min-w-[220px] max-h-[400px] overflow-y-auto"
+          style={{ zIndex: 9999 }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {actions.map((action) => {
+            const Icon = action.icon
+            return (
+              <motion.button
+                key={action.id}
+                onClick={() => handleAction(action.id)}
+                className={`w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-gray-50 transition-colors ${action.color} border-b border-gray-50 last:border-b-0`}
+                whileHover={{ x: 4 }}
+              >
+                <Icon size={16} />
+                <span className="font-medium text-sm text-gray-900 whitespace-nowrap">{action.label}</span>
+                {action.id === 'visit' && <ExternalLink size={12} className="ml-auto text-gray-400" />}
+              </motion.button>
+            )
+          })}
+        </motion.div>
+      </AnimatePresence>
+    </div>
   )
 }
 
